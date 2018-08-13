@@ -1,13 +1,13 @@
 package main
 
 import (
+	"back/beego_api/models"
+	_ "back/beego_api/routers"
+	"back/beego_api/services/base_service"
+	_ "back/beego_api/utils/util"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/orm"
-	"back/beego_api/models"
-	"back/beego_api/services/base_service"
-	_ "back/beego_api/routers"
-	_ "back/beego_api/utils/util"
 
 	"time"
 )

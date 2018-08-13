@@ -34,3 +34,8 @@ func Init() {
 func TableName(str string) string {
 	return beego.AppConfig.String("db_prefix") + str
 }
+
+// orm管理器
+func OrmManager() orm.Ormer {
+	return orm.NewOrm()
+}

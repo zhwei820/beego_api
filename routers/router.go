@@ -5,6 +5,7 @@ import (
 	"back/beego_api/services/user_service"
 	"back/beego_api/services/default_service"
 )
+
 // @APIVersion 1.0.0
 // @Description beego Test API
 // 使用注释路由

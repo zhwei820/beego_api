@@ -2,22 +2,37 @@ package models
 
 import (
 	"github.com/astaxie/beego/orm"
-	// "log"
-	// "fmt"
 	"time"
 	"back/beego_api/utils"
+	"github.com/astaxie/beego/logs"
 )
 
 type StaffUser struct {
 	Id       int64     `json:"id" orm:"column(id);pk;auto;unique"`
 	Phone    string    `json:"phone" orm:"column(phone);unique;size(11)"`
 	Email    string    `json:"email" orm:"column(email);unique;size(50)"`
-	Nickname string    `json:"nickname" orm:"column(nickname);unique;size(100);"`
+	Username string    `json:"username" orm:"column(username);unique;size(100);"`
 	Password string    `json:"-" orm:"column(password);size(300)"`
-	City     string    `json:"city" orm:"column(city);size(80);"`
+	City     string    `json:"city" orm:"column(city);size(60);"`
 	Created  time.Time `json:"create_at" orm:"column(create_at);auto_now_add;type(datetime)"`
 	Updated  time.Time `json:"-" orm:"column(update_at);auto_now;type(datetime)"`
 }
+
+// 多字段索引
+func (u *StaffUser) TableIndex() [][]string {
+	return [][]string{
+		{"Id", "Username"},
+	}
+}
+
+// 多字段唯一键
+func (u *StaffUser) TableUnique() [][]string {
+	return [][]string{
+		{"Username", "Email"},
+	}
+}
+
+
 
 func (u *StaffUser) TableName() string {
 	return TableName("user")
@@ -36,8 +51,8 @@ func CheckUserPhone(phone string) bool {
 }
 
 // 检测用户昵称是否存在
-func CheckUserNickname(nickname string) bool {
-	exist := Users().Filter("nickname", nickname).Exist()
+func CheckUserUsername(username string) bool {
+	exist := Users().Filter("username", username).Exist()
 	return exist
 }
 
@@ -46,26 +61,27 @@ func CreateUser(user StaffUser) int64 {
 	o := orm.NewOrm()
 	id, err:=o.Insert(&user)
 	if err != nil{
+		logs.Error("数据库错误: 创建用户失败, user: %v, error: %v", user, err)
 		return -1
 	}
 	return id
 }
 
 //检测手机和昵称是否注册
-func CheckUserPhoneOrNickname(phone string, nickname string) bool {
+func CheckUserPhoneOrUsername(phone string, username string) bool {
 	cond := orm.NewCondition()
-	count, _ := Users().SetCond(cond.And("phone", phone).Or("nickname", nickname)).Count()
+	count, _ := Users().SetCond(cond.And("phone", phone).Or("username", username)).Count()
 	if count <= int64(0) {
 		return false
 	}
 	return true
 }
-func CheckUserAuth(nickname string, password string) (StaffUser, bool) {
+func CheckUserAuth(username string, password string) (StaffUser, bool) {
 	o := orm.NewOrm()
 	user := StaffUser{
-		Nickname: nickname,
+		Username: username,
 	}
-	err := o.Read(&user, "Nickname", "Password")
+	err := o.Read(&user, "Username", "Password")
 
 	if err != nil || user.Password != utils.TransPassword(password)  {
 		return user, false
