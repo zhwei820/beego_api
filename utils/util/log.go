@@ -18,9 +18,14 @@ func init() {
 	logName := beego.AppConfig.DefaultString("log_name", "example.log")
 	logs.EnableFuncCallDepth(true)
 	logs.Async(1e4)
-	logs.SetLogger(logs.AdapterFile, fmt.Sprintf(`{"filename":"./data/log/%s","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`, logName))
+
+	loglevel := 6 // info
+
 	if beego.AppConfig.String("runmode") == "dev" {
 		logs.SetLogger("console")
+		loglevel = 7  // debug
 	}
+	logs.SetLogger(logs.AdapterFile, fmt.Sprintf(`{"filename":"./data/log/%s","level":%s,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`, logName, loglevel))
+
 	Logger = logs.GetLogger()
 }

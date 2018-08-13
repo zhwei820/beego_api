@@ -71,7 +71,7 @@ func (this *UserController) Register() {
 func (this *UserController) Login() {
 	username := this.GetString("username")
 	password := this.GetString("password")
-	logs.GetLogger("login").Printf("username: %s try to login.", username)
+	logs.Info("username: %s try to login.", username)
 
 	user, ok := models.CheckUserAuth(username, password)
 	if !ok {
@@ -103,6 +103,7 @@ func (this *UserController) Login() {
 func (this *UserController) Auth() {
 	et := utils.EasyToken{}
 	authtoken := strings.TrimSpace(this.Ctx.Request.Header.Get("Authorization"))
+
 	valid, err := et.ValidateToken(authtoken, 0)
 	if !valid {
 		this.WriteJsonWithCode(401, ErrResponse{-1, fmt.Sprintf("%s", err)})
