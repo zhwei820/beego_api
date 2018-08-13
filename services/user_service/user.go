@@ -33,12 +33,11 @@ type LoginToken struct {
 // @router /reg [post]
 func (this *UserController) Register() {
 	phone := this.GetString("phone")
-	email := this.GetString("email")
 	nickname := this.GetString("nickname")
 	password := this.GetString("password")
 	//code := this.GetString("code")
 
-	if this.validate_register(phone, nickname, password, email) != nil {
+	if this.validate_register(phone, nickname, password, "") != nil {
 		return
 	}
 
@@ -54,7 +53,6 @@ func (this *UserController) Register() {
 	password = utils.TransPassword(password) // 存储密码hash值
 	user := models.StaffUser{
 		Phone:    phone,
-		Email:    email,
 		Nickname: nickname,
 		Password: password,
 	}

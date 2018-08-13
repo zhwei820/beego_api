@@ -113,6 +113,9 @@
                     "type": "string",
                     "format": "datetime"
                 },
+                "email": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer",
                     "format": "int64"

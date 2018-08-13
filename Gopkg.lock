@@ -26,6 +26,15 @@
   version = "v3.2.0"
 
 [[projects]]
+  name = "github.com/garyburd/redigo"
+  packages = [
+    "internal",
+    "redis"
+  ]
+  revision = "a69d19351219b6dd56f274f96d85a7014a2ec34e"
+  version = "v1.6.0"
+
+[[projects]]
   name = "github.com/go-sql-driver/mysql"
   packages = ["."]
   revision = "d523deb1b23d913de5bdada721a6071e71283618"
@@ -36,6 +45,12 @@
   name = "github.com/gopherjs/gopherjs"
   packages = ["js"]
   revision = "0892b62f0d9fb5857760c3cfca837207185117ee"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/henrylee2cn/goutil"
+  packages = ["."]
+  revision = "8d407b0f76f7fa590e79e5769d3baf98dc652d52"
 
 [[projects]]
   name = "github.com/jtolds/gls"
@@ -64,6 +79,12 @@
   version = "1.6.3"
 
 [[projects]]
+  name = "github.com/zhwei820/go-logging"
+  packages = ["."]
+  revision = "a5b8e4466a0276e2157660eba94187536602994d"
+  version = "v1.0.1"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = [
@@ -87,6 +108,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "54b29e5eb1abed24580c61975ff4b8432a19e8e321aa3c1b3e76a1665da608d2"
+  inputs-digest = "250cb96a5c4baa74a8b50a1958b72a07b9444bebac73bde1a952ecae499705b6"
   solver-name = "gps-cdcl"
   solver-version = 1
