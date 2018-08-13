@@ -7,6 +7,8 @@ import (
 	"back/beego_api/models"
 	"back/beego_api/services/base_service"
 	_ "back/beego_api/routers"
+	_ "back/beego_api/utils/util"
+
 	"time"
 )
 

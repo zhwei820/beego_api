@@ -2,9 +2,9 @@ package utils
 
 import (
 	"errors"
-	"github.com/astaxie/beego/config"
 	"github.com/dgrijalva/jwt-go"
 	"log"
+	"github.com/astaxie/beego"
 )
 
 type EasyToken struct {
@@ -22,11 +22,7 @@ var (
 )
 
 func init() {
-	appConf, err := config.NewConfig("ini", "conf/app.conf")
-	if err != nil {
-		panic(err)
-	}
-	verifyKey = appConf.String("jwt::token")
+	verifyKey = beego.AppConfig.String("jwt::token")
 }
 
 func (e EasyToken) GetToken() (string, error) {

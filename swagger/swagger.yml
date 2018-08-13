@@ -23,7 +23,7 @@ paths:
       operationId: UserController.登录
       parameters:
       - in: formData
-        name: nickname
+        name: username
         description: 用户昵称
         required: true
         type: string
@@ -50,7 +50,7 @@ paths:
         required: true
         type: string
       - in: formData
-        name: nickname
+        name: username
         description: 用户昵称
         required: true
         type: string
@@ -81,7 +81,7 @@ definitions:
       id:
         type: integer
         format: int64
-      nickname:
+      username:
         type: string
       phone:
         type: string

@@ -34,7 +34,7 @@
                 "parameters": [
                     {
                         "in": "formData",
-                        "name": "nickname",
+                        "name": "username",
                         "description": "用户昵称",
                         "required": true,
                         "type": "string"
@@ -74,7 +74,7 @@
                     },
                     {
                         "in": "formData",
-                        "name": "nickname",
+                        "name": "username",
                         "description": "用户昵称",
                         "required": true,
                         "type": "string"
@@ -120,7 +120,7 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "nickname": {
+                "username": {
                     "type": "string"
                 },
                 "phone": {

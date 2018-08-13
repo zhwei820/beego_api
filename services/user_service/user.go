@@ -6,12 +6,13 @@ import (
 	"back/beego_api/utils"
 	"strings"
 	. "back/beego_api/services/base_service"
+	"github.com/astaxie/beego/logs"
 )
 
 var (
 	ErrPhoneIsRegis     = ErrResponse{422001, "手机用户已经注册"}
-	ErrNicknameIsRegis  = ErrResponse{422002, "用户名已经被注册"}
-	ErrNicknameOrPasswd = ErrResponse{422003, "账号或密码错误。"}
+	ErrUsernameIsRegis  = ErrResponse{422002, "用户名已经被注册"}
+	ErrUsernameOrPasswd = ErrResponse{422003, "账号或密码错误。"}
 )
 
 type UserController struct {
@@ -25,7 +26,7 @@ type LoginToken struct {
 // @Title 注册新用户
 // @Description 用户注册
 // @Param	phone		formData 	string	true 		"用户手机号"
-// @Param	nickname	formData 	string	true		"用户昵称"
+// @Param	username	formData 	string	true		"用户昵称"
 // @Param	password	formData 	string	true		"密码"
 // @Success 200 {object} models.StaffUser
 // @Failure 403 参数错误：缺失或格式错误
@@ -33,11 +34,11 @@ type LoginToken struct {
 // @router /reg [post]
 func (this *UserController) Register() {
 	phone := this.GetString("phone")
-	nickname := this.GetString("nickname")
+	username := this.GetString("username")
 	password := this.GetString("password")
 	//code := this.GetString("code")
 
-	if this.validate_register(phone, nickname, password, "") != nil {
+	if this.validate_register(phone, username, password, "") != nil {
 		return
 	}
 
@@ -45,15 +46,15 @@ func (this *UserController) Register() {
 		this.WriteJsonWithCode(403, ErrPhoneIsRegis)
 		return
 	}
-	if models.CheckUserNickname(nickname) {
-		this.WriteJsonWithCode(403, ErrNicknameIsRegis)
+	if models.CheckUserUsername(username) {
+		this.WriteJsonWithCode(403, ErrUsernameIsRegis)
 		return
 	}
 
 	password = utils.TransPassword(password) // 存储密码hash值
 	user := models.StaffUser{
 		Phone:    phone,
-		Nickname: nickname,
+		Username: username,
 		Password: password,
 	}
 	this.WriteJson(Response{0, "success.", models.CreateUser(user)})
@@ -62,23 +63,24 @@ func (this *UserController) Register() {
 
 // @Title 登录
 // @Description 账号登录接口
-// @Param	nickname	formData 	string	true		"用户昵称"
+// @Param	username	formData 	string	true		"用户昵称"
 // @Param	password	formData 	string	true		"密码"
 // @Success 200 {string}
 // @Failure 401 No Admin
 // @router /login [post]
 func (this *UserController) Login() {
-	nickname := this.GetString("nickname")
+	username := this.GetString("username")
 	password := this.GetString("password")
+	logs.GetLogger("login").Printf("username: %s try to login.", username)
 
-	user, ok := models.CheckUserAuth(nickname, password)
+	user, ok := models.CheckUserAuth(username, password)
 	if !ok {
-		this.WriteJsonWithCode(403, ErrNicknameOrPasswd)
+		this.WriteJsonWithCode(403, ErrUsernameOrPasswd)
 		return
 	}
 
 	et := utils.EasyToken{
-		Username: user.Nickname,
+		Username: user.Username,
 		Uid:      user.Id,
 		Expires:  utils.GetExpireTime(),
 	}
