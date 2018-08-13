@@ -55,7 +55,7 @@ func (e EasyToken) ValidateToken(tokenString string, newExpireAt int64) (bool, e
 	}
 	if token.Valid {
 		claims, _ := token.Claims.(jwt.MapClaims)
-		if claims["exp"].(int64) < newExpireAt {  // 留一个服务端让用户登出的口子
+		if int64(claims["exp"].(float64)) < newExpireAt {  // 留一个服务端让用户登出的口子
 			return false, errors.New(ErrExpired)
 		}
 		return true, nil

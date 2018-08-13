@@ -44,8 +44,8 @@ func CheckUserNickname(nickname string) bool {
 //创建用户
 func CreateUser(user StaffUser) int64 {
 	o := orm.NewOrm()
-	id, err:=o.Insert(&user)
-	if err != nil{
+	id, err := o.Insert(&user)
+	if err != nil {
 		return -1
 	}
 	return id
@@ -61,16 +61,13 @@ func CheckUserPhoneOrNickname(phone string, nickname string) bool {
 	return true
 }
 func CheckUserAuth(nickname string, password string) (StaffUser, bool) {
-	o := orm.NewOrm()
-	user := StaffUser{
-		Nickname: nickname,
-	}
-	err := o.Read(&user, "Nickname", "Password")
+	var staffuser StaffUser
+	err := Users().Filter("nickname", nickname).One(&staffuser)
 
-	if err != nil || user.Password != utils.TransPassword(password)  {
-		return user, false
+	if err != nil || staffuser.Password != utils.TransPassword(password) {
+		return staffuser, false
 	}
-	return user, true
+	return staffuser, true
 }
 
 // StaffUser database CRUD methods include Insert, Read, Update and Delete

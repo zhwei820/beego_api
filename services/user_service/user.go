@@ -36,7 +36,7 @@ func (this *UserController) Register() {
 	email := this.GetString("email")
 	nickname := this.GetString("nickname")
 	password := this.GetString("password")
-	code := this.GetString("code")
+	//code := this.GetString("code")
 
 	if this.validate_register(phone, nickname, password, email) != nil {
 		return
@@ -99,6 +99,7 @@ func (this *UserController) Login() {
 // @Success 200 {string}
 // @Failure 401 unauthorized
 // @router /auth [get]
+// @Security jwt
 func (this *UserController) Auth() {
 	et := utils.EasyToken{}
 	authtoken := strings.TrimSpace(this.Ctx.Request.Header.Get("Authorization"))

@@ -8,6 +8,7 @@ import (
 // @APIVersion 1.0.0
 // @Description beego Test API
 // 使用注释路由
+// @SecurityDefinition jwt apiKey Authorization header header
 func init() {
 	beego.Router("/", &default_service.DefaultController{}, "*:GetAll")
 	ns := beego.NewNamespace("/v1",
