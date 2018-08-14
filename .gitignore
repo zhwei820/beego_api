@@ -2,4 +2,5 @@
 /lastupdate.tmp
 /*.tmp
 .idea
+data
 vendor
