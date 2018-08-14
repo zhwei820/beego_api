@@ -6,7 +6,6 @@ import (
 	"back/beego_api/utils"
 	"strings"
 	. "back/beego_api/services/base_service"
-	"github.com/astaxie/beego/logs"
 )
 
 var (
@@ -69,9 +68,12 @@ func (this *UserController) Register() {
 // @Failure 401 No Admin
 // @router /login [post]
 func (this *UserController) Login() {
+	this.loginTest()  // 测试登陆日志
+
 	username := this.GetString("username")
 	password := this.GetString("password")
-	logs.Info("username: %s try to login.", username)
+	this.GetLogger().Printf("this is a message with trace id")
+	this.GetLogger().Printf("username: %s try to login.", username)
 
 	user, ok := models.CheckUserAuth(username, password)
 	if !ok {

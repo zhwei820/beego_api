@@ -2,10 +2,17 @@ package base_service
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"back/beego_api/utils/define"
+	"log"
 )
 
 type BaseController struct {
 	beego.Controller
+}
+
+func (this *BaseController) GetLogger() *log.Logger {
+	return logs.GetLogger(this.Ctx.Request.Header.Get(define.TraceId))
 }
 
 func (this *BaseController) WriteJson(jsonData interface{})  {

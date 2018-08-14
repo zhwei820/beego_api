@@ -59,6 +59,12 @@
   version = "v4.2.1"
 
 [[projects]]
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
+
+[[projects]]
   name = "github.com/smartystreets/assertions"
   packages = [
     ".",
@@ -77,12 +83,6 @@
   ]
   revision = "9e8dc3f972df6c8fcc0375ef492c24d0bb204857"
   version = "1.6.3"
-
-[[projects]]
-  name = "github.com/zhwei820/go-logging"
-  packages = ["."]
-  revision = "a5b8e4466a0276e2157660eba94187536602994d"
-  version = "v1.0.1"
 
 [[projects]]
   branch = "master"
@@ -108,6 +108,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "250cb96a5c4baa74a8b50a1958b72a07b9444bebac73bde1a952ecae499705b6"
+  inputs-digest = "882880f1cf641e304f76cf9b45f37d7c2a8fee8bc2dcb643e3e61c0a16d872de"
   solver-name = "gps-cdcl"
   solver-version = 1

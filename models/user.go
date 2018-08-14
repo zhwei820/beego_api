@@ -74,6 +74,7 @@ func CheckUserPhoneOrUsername(phone string, username string) bool {
 	return true
 }
 func CheckUserAuth(username string, password string) (StaffUser, bool) {
+
 	var user StaffUser
 
 	err := Users().Filter("username", username).One(&user)

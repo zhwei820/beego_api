@@ -13,7 +13,10 @@ var Logger *log.Logger
 
 func init() {
 	path := filepath.Join("data", "log")
-	os.MkdirAll(path, 0777)
+	err := os.MkdirAll(path, 0777)
+	if err != nil {
+		logs.Error("mkdir error; %v", err)
+	}
 
 	logName := beego.AppConfig.DefaultString("log_name", "example.log")
 	logs.EnableFuncCallDepth(true)
