@@ -32,8 +32,6 @@ func (u *StaffUser) TableUnique() [][]string {
 	}
 }
 
-
-
 func (u *StaffUser) TableName() string {
 	return TableName("user")
 }
@@ -41,7 +39,7 @@ func init() {
 	orm.RegisterModel(new(StaffUser))
 }
 func Users() orm.QuerySeter {
-	return orm.NewOrm().QueryTable(new(StaffUser))
+	return OrmManager().QueryTable(new(StaffUser))
 }
 
 // 检测手机号是否注册
@@ -58,9 +56,8 @@ func CheckUserUsername(username string) bool {
 
 //创建用户
 func CreateUser(user StaffUser) int64 {
-	o := orm.NewOrm()
-	id, err:=o.Insert(&user)
-	if err != nil{
+	id, err := OrmManager().Insert(&user)
+	if err != nil {
 		logs.Error("数据库错误: 创建用户失败, user: %v, error: %v", user, err)
 		return -1
 	}
@@ -77,43 +74,12 @@ func CheckUserPhoneOrUsername(phone string, username string) bool {
 	return true
 }
 func CheckUserAuth(username string, password string) (StaffUser, bool) {
-	o := orm.NewOrm()
-	user := StaffUser{
-		Username: username,
-	}
-	err := o.Read(&user, "Username", "Password")
+	var user StaffUser
 
-	if err != nil || user.Password != utils.TransPassword(password)  {
+	err := Users().Filter("username", username).One(&user)
+
+	if err != nil || user.Password != utils.TransPassword(password) {
 		return user, false
 	}
 	return user, true
-}
-
-// StaffUser database CRUD methods include Insert, Read, Update and Delete
-func (usr *StaffUser) Insert() error {
-	if _, err := orm.NewOrm().Insert(usr); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (usr *StaffUser) Read(fields ...string) error {
-	if err := orm.NewOrm().Read(usr, fields...); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (usr *StaffUser) Update(fields ...string) error {
-	if _, err := orm.NewOrm().Update(usr, fields...); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (usr *StaffUser) Delete() error {
-	if _, err := orm.NewOrm().Delete(usr); err != nil {
-		return err
-	}
-	return nil
 }

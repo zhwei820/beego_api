@@ -23,9 +23,9 @@ func init() {
 
 	if beego.AppConfig.String("runmode") == "dev" {
 		logs.SetLogger("console")
-		loglevel = 7  // debug
+		loglevel = 7 // debug
 	}
-	logs.SetLogger(logs.AdapterFile, fmt.Sprintf(`{"filename":"./data/log/%s","level":%s,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`, logName, loglevel))
+	logs.SetLogger(logs.AdapterFile, fmt.Sprintf(`{"filename":"./data/log/%v","level":%v,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`, logName, loglevel))
 
 	Logger = logs.GetLogger()
 }

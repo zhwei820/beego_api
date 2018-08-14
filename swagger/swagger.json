@@ -21,7 +21,12 @@
                     "401": {
                         "description": "unauthorized"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
             }
         },
         "/user/login": {
@@ -120,13 +125,21 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "username": {
+                "phone": {
                     "type": "string"
                 },
-                "phone": {
+                "username": {
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "jwt": {
+            "type": "apiKey",
+            "description": "header",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }
