@@ -4,6 +4,7 @@ import (
 	. "back/beego_api/services/base_service"
 	"github.com/astaxie/beego/validation"
 	"strings"
+	"back/beego_api/utils"
 )
 
 // Operations about object
@@ -44,7 +45,7 @@ type User struct {
 	Email  string `valid:"Email; MaxSize(100)"` // Email 字段需要符合邮箱格式，并且最大长度不能大于 100 个字符
 	Mobile string `valid:"Mobile"` // Mobile 必须为正确的手机号
 	IP     string `valid:"IP"` // IP 必须为一个正确的 IPv4 地址
-	Addresses      []*Address `validate:"required"` // a person can have a home and cottage...
+	Addresses      []*Address `valid:"Required"` // a person can have a home and cottage...
 
 }
 
@@ -65,8 +66,18 @@ func (u *User) Valid(v *validation.Validation) {
 func (this *TestController) ApiPostTest() {
 	var user User
 	err := this.GetJson(&user)
+	if err == nil {
+		for _, addr := range user.Addresses {
+			err = utils.Validate(&addr) // 根据struct tag验证
+			if err != nil {
+				break
+			}
+		}
+	}
+
 	if err != nil{
 		this.WriteJsonWithCode(403, err.Error())
+		return
 	}
 	this.WriteJson(user)
 }
