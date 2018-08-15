@@ -34,8 +34,8 @@ services:
     command: supervisord -c /etc/supervisord.conf
     volumes:
       - ./conf:/data/conf
-      - /data/beego_api/log:/data/data/log
-      - /data/static:/data/data/static
+      - ./data/log:/data/data/log
+      - ./data/static:/data/data/static
     ports:
       - "8080:8080"
     network_mode: bridge
