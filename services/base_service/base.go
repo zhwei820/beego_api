@@ -5,6 +5,8 @@ import (
 	"github.com/astaxie/beego/logs"
 	"back/beego_api/utils/define"
 	"log"
+	"encoding/json"
+	"github.com/astaxie/beego/validation"
 )
 
 type BaseController struct {
@@ -14,6 +16,27 @@ type BaseController struct {
 func (this *BaseController) GetLogger() *log.Logger {
 	return logs.GetLogger(this.Ctx.Request.Header.Get(define.TraceId))
 }
+
+func (this *BaseController) GetJson(ob interface{}) (error) {
+	var err error
+	if err = json.Unmarshal(this.Ctx.Input.RequestBody, &ob); err == nil {
+		valid := validation.Validation{}
+		b, err := valid.Valid(&ob)
+		if err != nil {
+			return err
+		}
+		if !b {
+			// validation does not pass
+			for _, err := range valid.Errors {
+				return err
+			}
+		}
+		return nil
+	}
+	return err
+}
+
+
 
 func (this *BaseController) WriteJson(jsonData interface{})  {
 	this.Data["json"] = jsonData
