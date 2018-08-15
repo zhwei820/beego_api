@@ -26,7 +26,8 @@ func init() {
 	beego.InsertFilter("*", beego.BeforeRouter, corsHandler)
 }
 func main() {
-	if beego.BConfig.RunMode == "dev" {
+	debug, _ := beego.AppConfig.Bool("debug")
+	if debug {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 		orm.Debug = true

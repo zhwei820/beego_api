@@ -4,11 +4,13 @@ services:
 # ========== dev or test ================
 
   web:
-    image: beego_api
+    image: beego_api:debug
     restart: always
+    command: ./beego_api
     volumes:
-      - ./data/static:/data/static
-      - ./data/log/:/data/log
+      - ./data/static:/data/data/static
+      - ./data/log/:/data/data/log
+      - ./conf:/data/conf
     ports:
       - "8080:8080"
     external_links:
@@ -25,12 +27,13 @@ services:
 # ========== prod ================
 
   prod:
-    image: beego_api
+    image: beego_api:release
     restart: always
+    command: supervisord -c /etc/supervisord.conf
     volumes:
-      - .:/code
-      - /data/beego_api/log:/data/log
-      - /data/static:/data/static
+      - ./conf:/data/conf
+      - /data/beego_api/log:/data/data/log
+      - /data/static:/data/data/static
     ports:
       - "8080:8080"
     network_mode: bridge
