@@ -29,7 +29,7 @@ type Address struct {
 	Street string `valid:"Required"`
 	City   string `valid:"Required"`
 	Planet string `valid:"Required"`
-	Phone  string `valid:"Required"`
+	Phone  string `valid:"Required;MinSize(10)"`
 }
 
 
@@ -68,7 +68,7 @@ func (this *TestController) ApiPostTest() {
 	err := this.GetJson(&user)
 	if err == nil {
 		for _, addr := range user.Addresses {
-			err = utils.Validate(&addr) // 根据struct tag验证
+			err = utils.Validate(addr) // 根据struct tag验证
 			if err != nil {
 				break
 			}
