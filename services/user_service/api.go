@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"back/beego_api/models"
 	"back/beego_api/utils"
+
 	"strings"
 	. "back/beego_api/services/base_service"
+	"back/beego_api/services/default_service"
 )
 
 var (
@@ -68,8 +70,11 @@ func (this *UserController) Register() {
 // @Failure 401 No Admin
 // @router /login [post]
 func (this *UserController) Login() {
-	this.loginTest()  // 测试登陆日志
-	this.LoginTest()  // 测试登陆日志
+	defaultController := default_service.DefaultController{this.BaseController}
+	defaultController.GetAllPublic()
+
+	this.loginTest() // 测试登陆日志
+	this.LoginTest() // 测试登陆日志
 
 	username := this.GetString("username")
 	password := this.GetString("password")
