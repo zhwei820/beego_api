@@ -33,13 +33,13 @@ type LoginToken struct {
 // @Failure 403 参数错误：缺失或格式错误
 // @Faulure 422 已被注册
 // @router /reg [post]
-func (this *UserController) Register() {
+func (this *UserController) ApiRegister() {
 	phone := this.GetString("phone")
 	username := this.GetString("username")
 	password := this.GetString("password")
 	//code := this.GetString("code")
 
-	if this.validate_register(phone, username, password, "") != nil {
+	if this.validateRegister(phone, username, password, "") != nil {
 		return
 	}
 
@@ -69,7 +69,7 @@ func (this *UserController) Register() {
 // @Success 200 {string}
 // @Failure 401 No Admin
 // @router /login [post]
-func (this *UserController) Login() {
+func (this *UserController) ApiLogin() {
 	defaultController := default_service.DefaultController{this.BaseController}
 	defaultController.GetAllPublic()
 
@@ -108,7 +108,7 @@ func (this *UserController) Login() {
 // @Failure 401 unauthorized
 // @router /auth [get]
 // @Security jwt
-func (this *UserController) Auth() {
+func (this *UserController) ApiAuth() {
 	et := utils.EasyToken{}
 	authtoken := strings.TrimSpace(this.Ctx.Request.Header.Get("Authorization"))
 

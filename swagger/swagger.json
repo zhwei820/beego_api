@@ -7,6 +7,30 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/test/": {
+            "post": {
+                "tags": [
+                    "test"
+                ],
+                "description": "PostTest",
+                "operationId": "TestController.PostTest",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "用户信息",
+                        "schema": {
+                            "$ref": "#/definitions/default_service.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string}"
+                    }
+                }
+            }
+        },
         "/user/auth": {
             "get": {
                 "tags": [
@@ -107,6 +131,56 @@
         }
     },
     "definitions": {
+        "default_service.Address": {
+            "title": "Address",
+            "type": "object",
+            "properties": {
+                "City": {
+                    "type": "string"
+                },
+                "Phone": {
+                    "type": "string"
+                },
+                "Planet": {
+                    "type": "string"
+                },
+                "Street": {
+                    "type": "string"
+                }
+            }
+        },
+        "default_service.User": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "Addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/default_service.Address"
+                    }
+                },
+                "Age": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "IP": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Mobile": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
         "models.StaffUser": {
             "title": "StaffUser",
             "type": "object",

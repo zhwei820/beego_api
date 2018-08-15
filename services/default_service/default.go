@@ -15,7 +15,7 @@ type DefaultController struct {
 // @Description API 欢迎信息
 // @Success 200 {string}
 // @router / [get]
-func (this *DefaultController) GetAll() {
+func (this *DefaultController) ApiGetAll() {
 	this.WriteJson(Response{0, "success.", "API 1.0"})
 }
 
@@ -62,7 +62,7 @@ func (u *User) Valid(v *validation.Validation) {
 // @Param   body  body default_service.User 用户信息
 // @Success 200 {string}
 // @router / [post]
-func (this *TestController) PostTest() {
+func (this *TestController) ApiPostTest() {
 	var user User
 	err := this.GetJson(&user)
 	if err != nil{

@@ -11,7 +11,7 @@ import (
 // 使用注释路由
 // @SecurityDefinition jwt apiKey Authorization header header
 func init() {
-	beego.Router("/", &default_service.DefaultController{}, "*:GetAll")
+	beego.Router("/", &default_service.DefaultController{}, "*:ApiGetAll")
 	ns := beego.NewNamespace("/v1",
 		beego.NSNamespace("/test",
 			beego.NSInclude(

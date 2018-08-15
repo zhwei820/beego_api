@@ -5,7 +5,7 @@ import (
 	. "back/beego_api/services/base_service"
 )
 
-func (this *UserController) validate_register(phone, username, password, email string) error {
+func (this *UserController) validateRegister(phone, username, password, email string) error {
 
 	valid := validation.Validation{}
 	//表单验证

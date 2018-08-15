@@ -9,7 +9,7 @@ func init() {
 
 	beego.GlobalControllerRouter["back/beego_api/services/default_service:DefaultController"] = append(beego.GlobalControllerRouter["back/beego_api/services/default_service:DefaultController"],
 		beego.ControllerComments{
-			Method: "GetAll",
+			Method: "ApiGetAll",
 			Router: `/`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
@@ -17,7 +17,7 @@ func init() {
 
 	beego.GlobalControllerRouter["back/beego_api/services/default_service:TestController"] = append(beego.GlobalControllerRouter["back/beego_api/services/default_service:TestController"],
 		beego.ControllerComments{
-			Method: "PostTest",
+			Method: "ApiPostTest",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),

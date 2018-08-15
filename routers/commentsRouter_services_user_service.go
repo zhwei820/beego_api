@@ -9,7 +9,7 @@ func init() {
 
 	beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"] = append(beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"],
 		beego.ControllerComments{
-			Method: "Auth",
+			Method: "ApiAuth",
 			Router: `/auth`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
@@ -17,7 +17,7 @@ func init() {
 
 	beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"] = append(beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"],
 		beego.ControllerComments{
-			Method: "Login",
+			Method: "ApiLogin",
 			Router: `/login`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
@@ -25,7 +25,7 @@ func init() {
 
 	beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"] = append(beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"],
 		beego.ControllerComments{
-			Method: "Register",
+			Method: "ApiRegister",
 			Router: `/reg`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
