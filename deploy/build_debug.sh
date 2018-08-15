@@ -1,6 +1,6 @@
 cd deploy || true;
 
-cd ../; go build -o deploy/beego_api;
+cd ../; go build . ; mv beego_api deploy/beego_api;
 
 cd deploy;
 

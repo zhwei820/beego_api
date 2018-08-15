@@ -11,6 +11,8 @@ services:
       - ./data/static:/data/data/static
       - ./data/log/:/data/data/log
       - ./conf:/data/conf
+      - ./swagger:/data/swagger
+
     ports:
       - "8080:8080"
     external_links:

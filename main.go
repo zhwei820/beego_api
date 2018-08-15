@@ -29,7 +29,7 @@ func main() {
 	debug, _ := beego.AppConfig.Bool("debug")
 	if debug {
 		beego.BConfig.WebConfig.DirectoryIndex = true
-		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
+		beego.BConfig.WebConfig.StaticDir["/swagger"] = "./swagger"
 		orm.Debug = true
 	}
 	orm.DefaultTimeLoc = time.UTC
