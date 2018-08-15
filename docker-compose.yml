@@ -1,0 +1,38 @@
+version: "3"
+services:
+
+# ========== dev or test ================
+
+  web:
+    image: beego_api
+    restart: always
+    volumes:
+      - ./data/static:/data/static
+      - ./data/log/:/data/log
+    ports:
+      - "8080:8080"
+    external_links:
+      - product_mysql:mysql
+      - product_redis:redis
+    network_mode: bridge
+    external_links:
+      - "product_mysql:mysql"
+      - "product_redis:redis"
+    container_name: beego_api_web
+    sysctls:
+      net.core.somaxconn: 163840
+
+# ========== prod ================
+
+  prod:
+    image: beego_api
+    restart: always
+    volumes:
+      - .:/code
+      - /data/beego_api/log:/data/log
+      - /data/static:/data/static
+    ports:
+      - "8080:8080"
+    network_mode: bridge
+    sysctls:
+      net.core.somaxconn: 163840
