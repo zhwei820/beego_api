@@ -13,6 +13,11 @@ import (
 func init() {
 	beego.Router("/", &default_service.DefaultController{}, "*:GetAll")
 	ns := beego.NewNamespace("/v1",
+		beego.NSNamespace("/test",
+			beego.NSInclude(
+				&default_service.TestController{},
+			),
+		),
 		beego.NSNamespace("/user",
 			beego.NSInclude(
 				&user_service.UserController{},
