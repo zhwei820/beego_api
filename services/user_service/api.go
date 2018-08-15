@@ -69,6 +69,7 @@ func (this *UserController) Register() {
 // @router /login [post]
 func (this *UserController) Login() {
 	this.loginTest()  // 测试登陆日志
+	this.LoginTest()  // 测试登陆日志
 
 	username := this.GetString("username")
 	password := this.GetString("password")
