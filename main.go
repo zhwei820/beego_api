@@ -7,6 +7,8 @@ import (
 	_ "back/beego_api/routers"
 	"back/beego_api/services/base_service"
 	_ "back/beego_api/utils/util"
+	_ "github.com/gomodule/redigo/redis"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/orm"
@@ -20,8 +22,7 @@ func init() {
 	corsHandler := func(ctx *context.Context) {
 		ctx.Output.Header("Access-Control-Allow-Origin", ctx.Input.Domain())
 		ctx.Output.Header("Access-Control-Allow-Methods", "*")
-		ctx.Request.Header.Add(define.TraceId, uuid.NewV4().String())
-		//logs.Info(ctx.Request.Header.Get("trace_id"))
+		ctx.Request.Header.Add(define.TraceId, uuid.NewV4().String()) // trace id
 	}
 	beego.InsertFilter("*", beego.BeforeRouter, corsHandler)
 }

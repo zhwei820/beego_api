@@ -2,7 +2,7 @@ package util
 
 import (
 	"time"
-	"github.com/garyburd/redigo/redis"
+	"github.com/gomodule/redigo/redis"
 )
 
 func NewRedisPool(server, password string, redisDb int) *redis.Pool {

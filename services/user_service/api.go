@@ -97,6 +97,7 @@ func (this *UserController) ApiLogin() {
 	if token == "" || err != nil {
 		this.WriteJson(ErrResponse{0, err})
 	} else {
+		this.SetSession("uid", user.Id)
 		this.WriteJson(Response{0, "success.", LoginToken{user, token}})
 	}
 
