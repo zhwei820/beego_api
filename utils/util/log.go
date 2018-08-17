@@ -1,34 +1,51 @@
 package util
 
 import (
+	"time"
+	"os"
+	"io"
+	"github.com/rs/zerolog"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego"
-	"fmt"
-	"log"
-	"os"
-	"path/filepath"
 )
 
-var Logger *log.Logger
+var Logger zerolog.Logger
 
 func init() {
-	path := filepath.Join("data", "log")
-	err := os.MkdirAll(path, 0777)
+	initLogger(beego.AppConfig.String("log_name"))
+}
+
+func initLogger(fname string) {
+	opFile := os.Stdout
+
+	fil, err := os.OpenFile(fname, os.O_WRONLY|os.O_APPEND|os.O_CREATE, os.FileMode(0660))
 	if err != nil {
-		logs.Error("mkdir error; %v", err)
+		println(err)
 	}
+	opFile = fil
+	defer func() {
+		if err := fil.Close(); err != nil {
+			logs.Error(err)
+		}
+	}()
 
-	logName := beego.AppConfig.DefaultString("log_name", "example.log")
-	logs.EnableFuncCallDepth(true)
-	logs.Async(1e4)
+	var f io.WriteCloser = opFile
 
-	loglevel := 6 // info
+	zerolog.TimestampFunc = func() time.Time { return time.Now().Round(time.Second) }
+	Logger = zerolog.New(f).With().
+		Timestamp().
+		Logger()
 
-	if beego.AppConfig.String("runmode") == "dev" {
-		logs.SetLogger("console")
-		loglevel = 7 // debug
-	}
-	logs.SetLogger(logs.AdapterFile, fmt.Sprintf(`{"filename":"./data/log/%v","level":%v,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`, logName, loglevel))
-
-	Logger = logs.GetLogger()
+	//wg.Add(10)
+	//for ii := 0; ii < 10; ii ++ {
+	//	go func() {
+	//		for i := 0; i < count; i++ {
+	//			log.Error().
+	//				Int("Fault", 41650+i).Msg("Some Message")
+	//		}
+	//		wg.Done()
+	//
+	//	}()
+	//}
+	//wg.Wait()
 }

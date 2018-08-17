@@ -18,6 +18,7 @@ import:
   - redis
 - package: github.com/satori/go.uuid
   version: ^1.2.0
+- package: github.com/getsentry/raven-go
 testImport:
 - package: github.com/garyburd/redigo
   version: ^2.0.0

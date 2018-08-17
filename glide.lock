@@ -1,5 +1,5 @@
-hash: 1c8a74d9adae1109e73c65aff29ab0e04bcb99fecfc2ef9c27e0a5975780e4ee
-updated: 2018-08-17T09:01:32.993301776+08:00
+hash: 7cb0d131cb0b25950007cea88115d7ebcff0a5da4bd49a7a56a7ecd830c5bdea
+updated: 2018-08-17T18:33:55.012227451+08:00
 imports:
 - name: github.com/astaxie/beego
   version: 053a075344c118a5cc41981b29ef612bb53d20ca
@@ -11,11 +11,16 @@ imports:
   - logs
   - orm
   - session
+  - session/redis
   - toolbox
   - utils
   - validation
+- name: github.com/certifi/gocertifi
+  version: deb3ae2ef2610fde3330947281941c562861188b
 - name: github.com/dgrijalva/jwt-go
   version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
+- name: github.com/getsentry/raven-go
+  version: 7535a8fa2ace0ffb684b19f28d00655459ea2dae
 - name: github.com/go-sql-driver/mysql
   version: d523deb1b23d913de5bdada721a6071e71283618
 - name: github.com/gomodule/redigo
@@ -23,6 +28,8 @@ imports:
   subpackages:
   - internal
   - redis
+- name: github.com/pkg/errors
+  version: 816c9085562cd7ee03e7f8188a1cfd942858cded
 - name: github.com/satori/go.uuid
   version: f58768cc1a7a7e77a3bd49e98cdd21419399b6a3
 - name: golang.org/x/crypto
