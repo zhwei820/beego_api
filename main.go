@@ -1,13 +1,14 @@
 package main
 
 import (
+	_ "github.com/astaxie/beego/session/redis"
+	
 	"back/beego_api/models"
 	"back/beego_api/utils/define"
 
 	_ "back/beego_api/routers"
 	"back/beego_api/services/base_service"
 	_ "back/beego_api/utils/util"
-	_ "github.com/gomodule/redigo/redis"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
