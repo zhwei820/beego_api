@@ -62,7 +62,14 @@ func (u *User) Valid(v *validation.Validation) {
 // @Success 200 {string}
 // @router / [post]
 func (this *TestController) ApiPostTest() {
-	this.GetLogger().Str("uid", this.GetSession("uid").(string))
+
+	this.GetLogger().Msg("api post test")
+	this.GetLogger().Msg("api post test")
+	this.GetLogger().Msg("api post test")
+	this.GetLogger().Msg("api post test")
+	this.GetLogger().Msg("api post test")
+	this.GetLogger().Msg("api post test")
+
 	var user User
 	err := this.GetJson(&user)
 	if err == nil {

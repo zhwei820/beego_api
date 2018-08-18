@@ -15,7 +15,17 @@ type BaseController struct {
 
 func (this *BaseController) GetLogger() *zerolog.Event {
 	// zero log with trace id
-	return log.Info().Str("trace_id", this.Ctx.Request.Header.Get(define.TraceId))
+	return log.Info().Str("trace_id", this.Ctx.Request.Header.Get(define.TraceId)).
+		Str("uid", this.GetSessionStr("uid"))
+}
+
+// 获取字符串型session
+func (this *BaseController) GetSessionStr(key string) string {
+	uid := this.GetSession(key)
+	if uid == nil {
+		return ""
+	}
+	return uid.(string)
 }
 
 func (this *BaseController) GetJson(ob interface{}) (error) {
