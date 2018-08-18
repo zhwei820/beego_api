@@ -14,9 +14,9 @@ func Validate(ob interface{}) error {
 	}
 	if !b {
 		// validation does not pass
-		msg:=""
+		msg := ""
 		for _, err := range valid.Errors {
-			msg+=err.Key + ": " + err.Message + ";\n"
+			msg += err.Key + ": " + err.Message + ";\n"
 		}
 		return errors.New(msg)
 	}

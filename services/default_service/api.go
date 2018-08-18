@@ -32,21 +32,19 @@ type Address struct {
 	Phone  string `valid:"Required;MinSize(10)"`
 }
 
-
 // 验证函数写在 "valid" tag 的标签里
 // 各个函数之间用分号 ";" 分隔，分号后面可以有空格
 // 参数用括号 "()" 括起来，多个参数之间用逗号 "," 分开，逗号后面可以有空格
 // 正则函数(Match)的匹配模式用两斜杠 "/" 括起来
 // 各个函数的结果的 key 值为字段名.验证函数名
 type User struct {
-	Id     int
-	Name   string `valid:"Required;Match(/^Bee.*/)"` // Name 不能为空并且以 Bee 开头
-	Age    int    `valid:"Range(1, 140)"` // 1 <= Age <= 140，超出此范围即为不合法
-	Email  string `valid:"Email; MaxSize(100)"` // Email 字段需要符合邮箱格式，并且最大长度不能大于 100 个字符
-	Mobile string `valid:"Mobile"` // Mobile 必须为正确的手机号
-	IP     string `valid:"IP"` // IP 必须为一个正确的 IPv4 地址
-	Addresses      []*Address `valid:"Required"` // a person can have a home and cottage...
-
+	Id        int
+	Name      string     `valid:"Required;Match(/^Bee.*/)"` // Name 不能为空并且以 Bee 开头
+	Age       int        `valid:"Range(1, 140)"`            // 1 <= Age <= 140，超出此范围即为不合法
+	Email     string     `valid:"Email; MaxSize(100)"`      // Email 字段需要符合邮箱格式，并且最大长度不能大于 100 个字符
+	Mobile    string     `valid:"Mobile"`                   // Mobile 必须为正确的手机号
+	IP        string     `valid:"IP"`                       // IP 必须为一个正确的 IPv4 地址
+	Addresses []*Address `valid:"Required"`                 // a person can have a home and cottage...
 }
 
 // 如果你的 struct 实现了接口 validation.ValidFormer
@@ -64,7 +62,7 @@ func (u *User) Valid(v *validation.Validation) {
 // @Success 200 {string}
 // @router / [post]
 func (this *TestController) ApiPostTest() {
-	this.GetLogger().Println(this.GetSession("uid"))
+	this.GetLogger().Info().Str("uid", this.GetSession("uid").(string))
 
 	var user User
 	err := this.GetJson(&user)
@@ -77,7 +75,7 @@ func (this *TestController) ApiPostTest() {
 		}
 	}
 
-	if err != nil{
+	if err != nil {
 		this.WriteJsonWithCode(403, err.Error())
 		return
 	}

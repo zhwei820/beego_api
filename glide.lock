@@ -1,5 +1,5 @@
-hash: 7cb0d131cb0b25950007cea88115d7ebcff0a5da4bd49a7a56a7ecd830c5bdea
-updated: 2018-08-17T18:33:55.012227451+08:00
+hash: 2d72d661cfc110fa3d988bc5a362ed6d327a35808401974b087a34fad6c6ed57
+updated: 2018-08-18T11:39:16.348471708+08:00
 imports:
 - name: github.com/astaxie/beego
   version: 053a075344c118a5cc41981b29ef612bb53d20ca
@@ -30,6 +30,11 @@ imports:
   - redis
 - name: github.com/pkg/errors
   version: 816c9085562cd7ee03e7f8188a1cfd942858cded
+- name: github.com/rs/zerolog
+  version: 77db4b4f350e31be66a57c332acb7721cf9ff9bb
+  subpackages:
+  - internal/cbor
+  - internal/json
 - name: github.com/satori/go.uuid
   version: f58768cc1a7a7e77a3bd49e98cdd21419399b6a3
 - name: golang.org/x/crypto

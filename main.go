@@ -16,7 +16,6 @@ import (
 
 	"time"
 	"github.com/satori/go.uuid"
-	"github.com/astaxie/beego/logs"
 	"back/beego_api/utils/sentry"
 )
 
@@ -32,15 +31,15 @@ func init() {
 }
 
 func main() {
-	
-	logger := logs.GetLogger()
-	t1 := time.Now()
-	for ii := 0; ii < 1000000; ii++ {
-		logger.Println("xxxxx")
-	}
-	t2 := time.Since(t1).Nanoseconds()
 
-	logger.Println(float64(t2) / float64(time.Second))
+	//logger := logs.GetLogger()
+	//t1 := time.Now()
+	//for ii := 0; ii < 1000000; ii++ {
+	//	logger.Println("xxxxx")
+	//}
+	//t2 := time.Since(t1).Nanoseconds()
+	//
+	//logger.Println(float64(t2) / float64(time.Second))
 
 	debug, _ := beego.AppConfig.Bool("debug")
 	if debug {
