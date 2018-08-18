@@ -5,36 +5,46 @@ import (
 	"os"
 	"io"
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
+
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego"
+	"fmt"
+	"path/filepath"
+	"strings"
 )
-
-var Logger zerolog.Logger
 
 func init() {
 	initLogger(beego.AppConfig.String("log_name"))
 }
 
-func initLogger(fname string) {
-	opFile := os.Stdout
-
-	fil, err := os.OpenFile(fname, os.O_WRONLY|os.O_APPEND|os.O_CREATE, os.FileMode(0660))
+func makeLogDir(fname string) {
+	sl := strings.Split(fname, "/")
+	path := filepath.Join(sl[0:len(sl)-1]...)
+	err := os.MkdirAll(path, 0777)
 	if err != nil {
-		println(err)
+		logs.Error("mkdir error; %v", err)
 	}
-	opFile = fil
-	defer func() {
-		if err := fil.Close(); err != nil {
-			logs.Error(err)
-		}
-	}()
 
-	var f io.WriteCloser = opFile
+}
+
+var OpFile io.WriteCloser
+
+func initLogger(fname string) {
+	makeLogDir(fname)
+
+	opFile, err := os.OpenFile(fname, os.O_WRONLY|os.O_APPEND|os.O_CREATE, os.FileMode(0660))
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+
+	OpFile = opFile
 
 	zerolog.TimestampFunc = func() time.Time { return time.Now().Round(time.Second) }
-	Logger = zerolog.New(f).With().
-		Timestamp().
-		Logger()
+	log.Logger = zerolog.New(OpFile).With().Timestamp().Logger()
+
+	log.Error().
+		Int("Fault", 41650).Msg("Some Message")
 
 	//wg.Add(10)
 	//for ii := 0; ii < 10; ii ++ {

@@ -8,7 +8,6 @@ import (
 
 	_ "back/beego_api/routers"
 	"back/beego_api/services/base_service"
-	_ "back/beego_api/utils/util"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
@@ -17,6 +16,9 @@ import (
 	"time"
 	"github.com/satori/go.uuid"
 	"back/beego_api/utils/sentry"
+	"github.com/rs/zerolog/log"
+	_ "back/beego_api/utils/util"
+	"back/beego_api/utils/util"
 )
 
 func init() {
@@ -31,16 +33,10 @@ func init() {
 }
 
 func main() {
-
-	//logger := logs.GetLogger()
-	//t1 := time.Now()
-	//for ii := 0; ii < 1000000; ii++ {
-	//	logger.Println("xxxxx")
-	//}
-	//t2 := time.Since(t1).Nanoseconds()
-	//
-	//logger.Println(float64(t2) / float64(time.Second))
-
+	defer func() {
+		destroy()
+	}()
+	logTest()
 	debug, _ := beego.AppConfig.Bool("debug")
 	if debug {
 		beego.BConfig.WebConfig.DirectoryIndex = true
@@ -54,6 +50,20 @@ func main() {
 	beego.Run()
 }
 
-func destroy()  {
-	
+func logTest() {
+	t1 := time.Now()
+	for ii := 0; ii < 100000; ii++ {
+		log.Info().Msg("xxxxx")
+	}
+	t2 := time.Since(t1).Nanoseconds()
+
+	println(float64(t2) / float64(time.Second))
+
+}
+
+func destroy() {
+	if err := util.OpFile.Close(); err != nil {
+		util.OpFile.Close()
+
+	}
 }

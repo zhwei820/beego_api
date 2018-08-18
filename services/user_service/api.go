@@ -78,8 +78,8 @@ func (this *UserController) ApiLogin() {
 
 	username := this.GetString("username")
 	password := this.GetString("password")
-	this.GetLogger().Printf("this is a message with trace id")
-	this.GetLogger().Printf("username: %s try to login.", username)
+	this.GetLogger().Msg("this is a message with trace id")
+	this.GetLogger().Msgf("username: %s try to login.", username)
 
 	user, ok := models.CheckUserAuth(username, password)
 	if !ok {

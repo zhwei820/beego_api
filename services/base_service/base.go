@@ -5,17 +5,17 @@ import (
 	"back/beego_api/utils/define"
 	"encoding/json"
 	"back/beego_api/utils"
-	"back/beego_api/utils/util"
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 type BaseController struct {
 	beego.Controller
 }
 
-func (this *BaseController) GetLogger() zerolog.Logger {
+func (this *BaseController) GetLogger() *zerolog.Event {
 	// zero log with trace id
-	return util.Logger.With().Str("trace_id", this.Ctx.Request.Header.Get(define.TraceId)).Logger()
+	return log.Info().Str("trace_id", this.Ctx.Request.Header.Get(define.TraceId))
 }
 
 func (this *BaseController) GetJson(ob interface{}) (error) {

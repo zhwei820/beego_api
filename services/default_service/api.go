@@ -32,7 +32,7 @@ type Address struct {
 	Phone  string `valid:"Required;MinSize(10)"`
 }
 
-// 验证函数写在 "valid" tag 的标签里
+// 验证函数写在 "valid" tag 的标签里d
 // 各个函数之间用分号 ";" 分隔，分号后面可以有空格
 // 参数用括号 "()" 括起来，多个参数之间用逗号 "," 分开，逗号后面可以有空格
 // 正则函数(Match)的匹配模式用两斜杠 "/" 括起来
@@ -62,8 +62,7 @@ func (u *User) Valid(v *validation.Validation) {
 // @Success 200 {string}
 // @router / [post]
 func (this *TestController) ApiPostTest() {
-	this.GetLogger().Info().Str("uid", this.GetSession("uid").(string))
-
+	this.GetLogger().Str("uid", this.GetSession("uid").(string))
 	var user User
 	err := this.GetJson(&user)
 	if err == nil {
