@@ -31,4 +31,28 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"] = append(beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"],
+		beego.ControllerComments{
+			Method: "ApiUpdateUser",
+			Router: `/user`,
+			AllowHTTPMethods: []string{"put"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"] = append(beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"],
+		beego.ControllerComments{
+			Method: "ApiDeleteUser",
+			Router: `/user`,
+			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"] = append(beego.GlobalControllerRouter["back/beego_api/services/user_service:UserController"],
+		beego.ControllerComments{
+			Method: "ApiUserList",
+			Router: `/user_list`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 }

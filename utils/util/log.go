@@ -15,15 +15,15 @@ import (
 )
 
 func init() {
-	initLogger(beego.AppConfig.String("log_name"))
+	initLogger(beego.beego_api.String("log_name"))
 }
 
 func makeLogDir(fname string) {
 	sl := strings.Split(fname, "/")
-	path := filepath.Join(sl[0:len(sl)-1]...)
+	path := filepath.Join(sl[0 : len(sl)-1]...)
 	err := os.MkdirAll(path, 0777)
 	if err != nil {
-		logs.Error("mkdir error; %v", err)
+		logs.Error("mkdir error; %v; %v", path, err)
 	}
 
 }
@@ -42,9 +42,6 @@ func initLogger(fname string) {
 
 	zerolog.TimestampFunc = func() time.Time { return time.Now().Round(time.Second) }
 	log.Logger = zerolog.New(OpFile).With().Timestamp().Logger()
-
-	log.Error().
-		Int("Fault", 41650).Msg("Some Message")
 
 	//wg.Add(10)
 	//for ii := 0; ii < 10; ii ++ {

@@ -11,12 +11,12 @@ import (
 func Init() {
 
 	conn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s",
-		beego.AppConfig.String("db_user"),
-		beego.AppConfig.String("db_passwd"),
-		beego.AppConfig.String("db_host"),
-		beego.AppConfig.String("db_port"),
-		beego.AppConfig.String("db_name"),
-		beego.AppConfig.String("db_charset"))
+		beego.beego_api.String("db_user"),
+		beego.beego_api.String("db_passwd"),
+		beego.beego_api.String("db_host"),
+		beego.beego_api.String("db_port"),
+		beego.beego_api.String("db_name"),
+		beego.beego_api.String("db_charset"))
 	orm.RegisterDataBase("default", "mysql", conn)
 
 	//自动建表
@@ -28,11 +28,17 @@ func Init() {
 		fmt.Println(err)
 	}
 	orm.RunCommand()
+
+	debug, _ := beego.beego_api.Bool("debug")
+	if debug {
+		orm.Debug = true
+	}
 }
 
-//返回带前缀的表名
-func TableName(str string) string {
-	return beego.AppConfig.String("db_prefix") + str
+////返回带前缀的表名
+func TableName(str string) string { // 测试暂时不支持 带前缀的表名
+	//return beego.beego_api.String("db_prefix") + str
+	return str
 }
 
 // orm管理器
