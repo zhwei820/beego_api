@@ -22,7 +22,7 @@ var (
 )
 
 func init() {
-	verifyKey = beego.beego_api.String("jwt_token")
+	verifyKey = beego.AppConfig.String("jwt_token")
 }
 
 func (e EasyToken) GetToken() (string, error) {

@@ -12,7 +12,7 @@ import (
 )
 
 func Init() {
-	raven.SetDSN(beego.beego_api.String("sentry_dsn"))
+	raven.SetDSN(beego.AppConfig.String("sentry_dsn"))
 
 	if !beego.BConfig.RecoverPanic {
 		beego.BConfig.RecoverFunc = recoverPanic

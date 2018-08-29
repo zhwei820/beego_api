@@ -14,7 +14,7 @@ func main() {
 	defer func() {
 		destroy() // 退出后清理资源
 	}()
-	debug, _ := beego.beego_api.Bool("debug")
+	debug, _ := beego.AppConfig.Bool("debug")
 
 	beego.BConfig.WebConfig.StaticDir["/asset"] = "./views/templates"
 

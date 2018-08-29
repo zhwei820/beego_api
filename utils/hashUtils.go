@@ -23,7 +23,7 @@ func Sha256(s string) string {
 }
 
 func TransPassword(password string) string {
-	return Sha256(password + beego.beego_api.String("jwt_secret"))
+	return Sha256(password + beego.AppConfig.String("jwt_secret"))
 }
 
 func Base64(input string) string {

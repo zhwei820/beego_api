@@ -15,13 +15,13 @@ func init() {
 		logs.Error("mkdir error; %v", err)
 	}
 
-	logName := beego.beego_api.DefaultString("log_name", "example.log")
+	logName := beego.AppConfig.DefaultString("log_name", "example.log")
 	logs.EnableFuncCallDepth(true)
 	logs.Async(1e4)
 
 	loglevel := 6 // info
 
-	if beego.beego_api.String("runmode") == "dev" {
+	if beego.AppConfig.String("runmode") == "dev" {
 		logs.SetLogger("console")
 		loglevel = 7 // debug
 	} else {

@@ -15,7 +15,7 @@ import (
 )
 
 func init() {
-	initLogger(beego.beego_api.String("log_name"))
+	initLogger(beego.AppConfig.String("log_name"))
 }
 
 func makeLogDir(fname string) {
